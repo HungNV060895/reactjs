@@ -23,13 +23,16 @@ const ListTodo = (props) => {
 		const diff = targetDate.diff(today, "day");
 
 		if (diff < 0) {
-			return <Tag color="error">Hết hạn</Tag>;
+			return {
+				tag: <Tag color="error">Hết hạn</Tag>,
+				className: 'expired'
+			};
 		} else if (diff === 0) {
-			return <Tag color="warning">Hạn hôm nay</Tag>;
+			return {tag: <Tag color="warning">Hạn hôm nay</Tag>, className: 'issue-today'};
 		} else if (diff <= 2) {
-			return <Tag color="processing">Sắp hết hạn</Tag>;
+			return {tag: <Tag color="processing">Sắp hết hạn</Tag>, className: 'upcoming'};
 		} else {
-			return <Tag color="success">Còn {diff} ngày</Tag>;
+			return {tag: <Tag color="success">Còn {diff} ngày</Tag>, className: 'normal'};
 		}
 	}
 
@@ -38,22 +41,24 @@ const ListTodo = (props) => {
 	}
 	return (
 		<>
-			<ul className="list-result">
+			<ul className="todo-result">
 				{
 					tasks.map((item) => {
+						const status = getExpDate(item.date);
 						return (
-							<li key={item.id} className={item.complete ? 'completed' : ''}>
-								<input type="checkbox" name="checkComplete" checked={item.complete} onChange={() => toogleComplete(item.id)} />
-								<span className={`task-name ${item.priority}`}>
+							<li key={item.id} className={`${status?.className} todo-result__item` + ' ' + (item.complete ? 'completed' : '')}>
+								<input type="checkbox" className="todo-result__checkbox" name="checkComplete" checked={item.complete} onChange={() => toogleComplete(item.id)} />
+								<span className={`todo-result__name ${item.priority}`}>
 									{item.name}
 								</span>
 								<Flex gap="small" align="center" className="due-date-block">
-									<span className="date-text">{item.date}</span>
-									{getExpDate(item.date)}
+									<span className="todo-result__date">{item.date}</span>
+									{/* Dấu ? giá trị của status có tồn tại thì hiển thị tag tương ứng, nếu không có thì không hiển thị gì cả */}
+									{status?.tag}
 								</Flex>
-								<div className="control">
-									<button onClick={() => handleDelete(item.id)}>Delete</button>
-									<button onClick={() => handleEdit(item.id, item.priority, item.date)}>Edit</button>
+								<div className="todo-result__control">
+									<button className="todo-result__control-btn todo-result__control-btn--delete" onClick={() => handleDelete(item.id)}>Delete</button>
+									<button className="todo-result__control-btn todo-result__control-btn--edit" onClick={() => handleEdit(item.id, item.priority, item.date)}>Edit</button>
 								</div>
 							</li>
 							// The key needs to go on the outermost returned element.

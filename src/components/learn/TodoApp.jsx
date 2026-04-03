@@ -1,8 +1,10 @@
-import TitleTodo from "./TitleComponent";
 import FormToto from "./FormComponent";
 import ListTodo from "./ListComponent";
 import SearchTodo from "./SearchComponent";
 import logoEmpty from './../../assets/img/empty.png';
+import TodoHeading from "./TodoHeading";
+import TodoDashboard from "./TodoDashboard";
+import TodoPanelDate from "./TodoPanelDate";
 import { useEffect, useState } from "react";
 
 const TodoApp = () => {
@@ -96,36 +98,12 @@ const TodoApp = () => {
 			<div className="wrapper">
 				<section className="sec-todo-app">
 					<div className="inner">
-						<div className="todo-heading">
-							<div className="todo-heading__left">
-								<p className="todo-heading__greeting">Xin chào, hôm nay là</p>
-								<p className="todo-heading__date">
-									Thứ Sáu, <span>03/04/2026</span>
-								</p>
-							</div>
-							<div className="todo-heading__right">VH</div>
-						</div>
-						<ul class="todo-dashboard">
-							<li class="todo-dashboard__item	todo-dashboard__item--primary">
-								<div class="todo-dashboard__item-ttl">Tổng task</div>
-								<div class="todo-dashboard__item-num">7</div>
-							</li>
-							<li class="todo-dashboard__item todo-dashboard__item--secondary">
-								<div class="todo-dashboard__item-ttl">Sắp hết hạn</div>
-								<div class="todo-dashboard__item-num">2</div>
-							</li>
-							<li class="todo-dashboard__item todo-dashboard__item--danger">
-								<div class="todo-dashboard__item-ttl">Quá hạn</div>
-								<div class="todo-dashboard__item-num">1</div>
-							</li>
-						</ul>
+						<TodoHeading/>
+						<TodoDashboard />
+						
 						<div className="todo-wrapper">
 							<div className="todo-wrapper__left">
-								<div className="todo-panel date-panel">
-									<div class="date-panel__label">Ngày hôm nay</div>
-									<div class="date-panel__big">03<br/>Tháng 4</div>
-									<div class="date-panel__sub">Thứ Sáu, 2026</div>
-								</div>
+								<TodoPanelDate date={new Date()} />
 								<div className="todo-panel todo-form">
 									<FormToto
 										addNewTodo={addNewTodo} 
@@ -144,20 +122,18 @@ const TodoApp = () => {
 										setFilterStatus={setFilterStatus}
 									/>
 								</div>
-								<div className="todo-list">
-									{filteredTasks.length > 0 ?
-										<ListTodo
-											tasks={filteredTasks}
-											deleteTask={deleteTask}
-											editTask={editTask}
-											toogleComplete={toogleComplete}
-										/>
-										:
-										<div className="empty">
-											<img src={logoEmpty} alt="Empty" />
-										</div>
-									}
-								</div>
+								{filteredTasks.length > 0 ?
+									<ListTodo
+										tasks={filteredTasks}
+										deleteTask={deleteTask}
+										editTask={editTask}
+										toogleComplete={toogleComplete}
+									/>
+									:
+									<div className="empty">
+										<img src={logoEmpty} alt="Empty" />
+									</div>
+								}
 							</div>
 						</div>
 					</div>

@@ -1,109 +1,5 @@
 @use 'vars' as *;
 
-
-
-.empty{
-	max-width: 350px;
-	margin: 0 auto;
-}
-
-
-.result{
-	display: block;
-	color: red;
-	max-width: 350px;
-	margin: 0 auto 30px;
-}
-
-.list-result li{
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-	justify-content: space-between;
-}
-
-.control{
-	display: flex;
-	justify-content: space-between;
-	gap: 0 10px;
-}
-
-.control button{
-	width: 70px;
-	height: 30px;
-	border: none;
-	border-radius: 5px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgb(216, 96, 96);
-	color: #fff;
-	font-size: 16px;
-	font-weight: 500;
-	cursor: pointer;
-}
-
-.control button:nth-child(2){
-	background: rgb(125, 201, 142);
-}
-
-
-.completed{
-	span{
-		color: #ccc;
-		text-decoration: line-through;
-		color: #ccc;
-	}
-	button{
-		pointer-events: none;
-		opacity: 0.7;
-	}
-}
-
-
-.priority-high { border-left: 3px solid red; }
-.priority-medium { border-left: 3px solid orange; }
-.priority-low { border-left: 3px solid green; }
-
-
-.task-name{
-	display: block;
-	width: 100%;
-	text-align: left;
-	margin-left: 7%;
-	position: relative;
-	&::before{
-		content: '';
-		position: absolute;
-		left: -10%;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: green;
-	}
-	&.high{
-		&::before{
-			background: red;
-		}
-	}
-	&.medium{
-		&::before{
-			background: orange;
-		}
-	}
-}
-
-.due-date{
-	margin-right: 5%;
-	text-align: right;
-	span{
-		margin-right: 0;
-	}
-}
-
-
 .todo-search{
 	&__content{
 		display: flex;
@@ -114,20 +10,9 @@
 			margin-top: 1.5em;
 		}
 		dt{
-			margin-bottom: 1em;
+			margin-bottom: 0.5em;
 		}
 	}
-}
-
-
-.priority-task{
-	width: 100px !important;
-	margin-right: 15px;
-}
-
-.input-task{
-	margin-right: 15px;
-	width: calc(100% - 230px) !important;
 }
 
 .sec-todo-app{
@@ -151,6 +36,7 @@
 		font-weight: 500;
 		color: #2C2C2A;
 		margin-top: 2px;
+		text-transform: capitalize;
 	}
 	&__greeting{
 		font-size: 13px;
@@ -249,12 +135,14 @@
 		font-weight: 500;
 		color: #2C2C2A;
 		line-height: 1.1;
+		text-transform: capitalize;
 	}
 	&__sub{
 		font-size: 13px;
 		color: #888780;
 		margin-top: 4px;
 		font-style: italic;
+		text-transform: capitalize;
 	}
 }
 
@@ -278,8 +166,170 @@
 			padding: 0 15px;
 		}
 	}
+}
 
-	&__priority{
-		
+
+//Todo List
+.todo-list{
+	&__item{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+
+.empty{
+	max-width: 350px;
+	margin: 0 auto;
+}
+
+
+.result{
+	display: block;
+	color: red;
+	max-width: 350px;
+	margin: 0 auto 30px;
+}
+
+.todo-result{
+	&__item{
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 10px 12px;
+		background: #EDE6D6;
+		border-radius: 0 10px 10px 0;
+		margin-bottom: 10px;
+		&:last-of-type{
+			margin-bottom: 0;
+		}
+		&.expired{
+			border-left: 3px solid red;
+		}
+		&.issue-today{
+			border-left: 3px solid orange;
+		}
+		&.upcoming{
+			border-left: 3px solid #1677ff;
+		}
+		&.normal{
+			border-left: 3px solid #52c41a;
+		}
+	}
+	&__checkbox{
+		width: 16px;
+		height: 16px;
+		appearance: auto;
+		cursor: pointer;
+	}
+	&__name{
+		flex: 1;
+		font-size: 14px;
+		color: #2C2C2A;
+		min-width: 0;
+		overflow: hidden;
+		display: block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		position: relative;
+		padding-left: 25px;
+		&::before{
+			content: '';
+			position: absolute;
+			left: 5px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: green;
+		}
+		&.high{
+			&::before{
+				background: red;
+			}
+		}
+		&.medium{
+			&::before{
+				background: orange;
+			}
+		}
+	}
+	&__date{
+		font-size: 12px;
+		color: #888780;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+	&__control{
+		display: flex;
+		justify-content: space-between;
+		gap: 0 5px;
+		&-btn{
+			font-size: 12px;
+			padding: 3px 9px;
+			border-radius: 6px;
+			cursor: pointer;
+			outline: 0;
+			@include smooth-transition;
+			&--edit{
+				border: 0.5px solid #5DCAA5;
+				background: transparent;
+				color: #085041;
+				@include hover{
+					background: #5DCAA5;
+					color: #fff;
+				}
+			}
+			&--delete{
+				border: 0.5px solid #F09595;
+				background: transparent;
+				color: #A32D2D;
+				@include hover{
+					background: #F09595;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
+.ant-tag{
+	font-size: 11px;
+	margin-right: 0;
+}
+
+.completed{
+	span{
+		color: #ccc;
+		text-decoration: line-through;
+		color: #ccc;
+	}
+	button{
+		pointer-events: none;
+		opacity: 0.7;
+	}
+}
+
+
+.priority-high { border-left: 3px solid red; }
+.priority-medium { border-left: 3px solid orange; }
+.priority-low { border-left: 3px solid green; }
+
+
+.task-name{
+	display: block;
+	width: 100%;
+	text-align: left;
+	margin-left: 7%;
+	
+}
+
+.due-date{
+	margin-right: 5%;
+	text-align: right;
+	span{
+		margin-right: 0;
 	}
 }
