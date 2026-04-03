@@ -94,33 +94,75 @@ const TodoApp = () => {
 	return (
 		<>
 			<div className="wrapper">
-				<div className="todo-list">
-					<TitleTodo />
-					<SearchTodo 
-						handleSearch={setSearchKeyword}
-						filterProiority={filterProiority}
-						filterStatus={filterStatus}
-						setFilterPriority={setFilterPriority}
-						setFilterStatus={setFilterStatus}
-					/>
-					<FormToto
-						addNewTodo={addNewTodo} taskEdited={taskEdited} updateTodo={updateTodo} /> {/*Truyền funtion từ cha -> con. Lưu ý: truyền func {addNewTodo} khác với thực thi func {addNewTodo()}*/}
-					{filteredTasks.length > 0 ?
-						<ListTodo
-							tasks={filteredTasks}
-							deleteTask={deleteTask}
-							editTask={editTask}
-							toogleComplete={toogleComplete}
-						/>
-						:
-						<div className="empty">
-							<img src={logoEmpty} alt="Empty" />
+				<section className="sec-todo-app">
+					<div className="inner">
+						<div className="todo-heading">
+							<div className="todo-heading__left">
+								<p className="todo-heading__greeting">Xin chào, hôm nay là</p>
+								<p className="todo-heading__date">
+									Thứ Sáu, <span>03/04/2026</span>
+								</p>
+							</div>
+							<div className="todo-heading__right">VH</div>
 						</div>
-					}
-				</div>
+						<ul class="todo-dashboard">
+							<li class="todo-dashboard__item	todo-dashboard__item--primary">
+								<div class="todo-dashboard__item-ttl">Tổng task</div>
+								<div class="todo-dashboard__item-num">7</div>
+							</li>
+							<li class="todo-dashboard__item todo-dashboard__item--secondary">
+								<div class="todo-dashboard__item-ttl">Sắp hết hạn</div>
+								<div class="todo-dashboard__item-num">2</div>
+							</li>
+							<li class="todo-dashboard__item todo-dashboard__item--danger">
+								<div class="todo-dashboard__item-ttl">Quá hạn</div>
+								<div class="todo-dashboard__item-num">1</div>
+							</li>
+						</ul>
+						<div className="todo-wrapper">
+							<div className="todo-wrapper__left">
+								<div className="todo-panel date-panel">
+									<div class="date-panel__label">Ngày hôm nay</div>
+									<div class="date-panel__big">03<br/>Tháng 4</div>
+									<div class="date-panel__sub">Thứ Sáu, 2026</div>
+								</div>
+								<div className="todo-panel todo-form">
+									<FormToto
+										addNewTodo={addNewTodo} 
+										taskEdited={taskEdited} 
+										updateTodo={updateTodo} 
+									/> {/*Truyền funtion từ cha -> con. Lưu ý: truyền func {addNewTodo} khác với thực thi func {addNewTodo()}*/}
+								</div>
+							</div>
+							<div className="todo-wrapper__right">
+								<div className="todo-panel todo-search">
+									<SearchTodo 
+										handleSearch={setSearchKeyword}
+										filterProiority={filterProiority}
+										filterStatus={filterStatus}
+										setFilterPriority={setFilterPriority}
+										setFilterStatus={setFilterStatus}
+									/>
+								</div>
+								<div className="todo-list">
+									{filteredTasks.length > 0 ?
+										<ListTodo
+											tasks={filteredTasks}
+											deleteTask={deleteTask}
+											editTask={editTask}
+											toogleComplete={toogleComplete}
+										/>
+										:
+										<div className="empty">
+											<img src={logoEmpty} alt="Empty" />
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 			</div>
-
-
 		</>
 	)
 }

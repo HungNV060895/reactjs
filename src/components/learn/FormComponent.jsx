@@ -68,24 +68,28 @@ const FormToto = (props) => {
 	}, [taskEdited]);
 	return (
 		<>
-			<h3 className="task-ttl">{taskEdited ? "Sửa Task" : "Thêm mới Task"}</h3>
-			<div className="todo-form">
-				<div className="todo-date">
+			<h3 className="panel-label todo-form__ttl">{taskEdited ? "Sửa Task" : "Thêm mới Task"}</h3>
+			<div className="todo-form__field">
+				<input type="text" className="form-control todo-form__input" placeholder="Tên Task..." ref={inputRef} onChange={(event) => hadleOnchange(event.target.value)}
+					value={valueInput}
+				/>
+			</div>
+			<div className="todo-form__field">
+				<div className="todo-form__date">
 					<Space direction="vertical">
 						<DatePicker format={APP_CONFIG.DATE_FORMAT} className="form-control" onChange={(date) => handleDate(date)} value={valueDate} />
 					</Space>
 				</div>
-				<select name="priority" className="priority-task form-control" id="" onChange={(event) => hadleOnSelect(event.target.value)} value={taskPriority}>
+			</div>
+			<div className="todo-form__field todo-form__field--flex">
+				<select name="priority" className="todo-form__priority form-control form-control--select" id="" onChange={(event) => hadleOnSelect(event.target.value)} value={taskPriority}>
 					<option value="low">Low</option>
 					<option value="medium">Medium</option>
 					<option value="high">High</option>
 				</select>
-				<input type="text" className="input-task" placeholder="Enter your task" ref={inputRef} onChange={(event) => hadleOnchange(event.target.value)}
-					value={valueInput}
-				/> {/* event.target.value == name */}
-			   {
-					taskEdited ? <button className="btn-add" onClick={handleClick}>Update</button> : <button onClick={handleClick}>Add</button>
-			   }
+				{
+					taskEdited ? <button className="c-btn__01 btn-add" onClick={handleClick}>Update</button> : <button className="c-btn__01 btn-add" onClick={handleClick}>+ Thêm</button>
+				}
 			</div>
 		</>
 	)

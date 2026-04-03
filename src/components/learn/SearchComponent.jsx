@@ -26,14 +26,14 @@ const SearchTodo = (props) => {
 
     return(
         <>
-            <div className="search-block">
-                <h3 className="search-ttl">Tìm kiếm task</h3>
-                <div className="search">
-                    <input type="text" className="form-control" placeholder="Search task..." onChange={handleInputChange} value={inputSearch} />
+            <div className="todo-search">
+                <h3 className="panel-label search-ttl">Tìm kiếm task</h3>
+                <div className="todo-search__content">
+                    <input type="text" className="form-control form-controll--select" placeholder="Tìm kiếm task..." onChange={handleInputChange} value={inputSearch} />
                     <dl>
-                        <dt>Priority:</dt>
+                        <dt className="panel-label">Priority:</dt>
                         <dd>
-                            <select name="filterPriority" id="filterPriority" className="form-control" onChange={(e)=>handlePriorityChange(e.target.value)} value={filterProiority}>
+                            <select name="filterPriority" id="filterPriority" className="form-control form-control--select" onChange={(e)=>handlePriorityChange(e.target.value)} value={filterProiority}>
                                 <option value="all">Tất cả</option>
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
@@ -42,9 +42,9 @@ const SearchTodo = (props) => {
                         </dd>
                     </dl>
                     <dl>
-                        <dt>Status:</dt>
+                        <dt className="panel-label">Status:</dt>
                         <dd>
-                            <select name="filterStatus" id="filterStatus" className="form-control" onChange={(e)=>handleStatusChange(e.target.value)} value={filterStatus}>
+                            <select name="filterStatus" id="filterStatus" className="form-control form-control--select" onChange={(e)=>handleStatusChange(e.target.value)} value={filterStatus}>
                                 <option value="all">Tất cả</option>
                                 <option value="complete">Hoàn thành</option>
                                 <option value="incomplete">Chưa hoàn thành</option>

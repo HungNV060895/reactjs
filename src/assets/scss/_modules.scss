@@ -1,0 +1,60 @@
+@use 'vars' as *;
+
+.c-btn{
+	&__01{
+		min-width: 80px;
+		height: 40px;
+		padding: 0 15px;
+		border-radius: 5px;
+		background: #D85A30;
+		border: none;
+		color: #fff;
+		font-size: 14px;
+		font-weight: 500;
+		cursor: pointer;
+		border: 1px solid #D85A30;
+		@include smooth-transition;
+		@include hover{
+			background: #fff;
+			color: #D85A30;
+		}
+	}
+}
+
+.panel-label{
+	font-size: 11px;
+	font-weight: 500;
+	color: #888780;
+	text-transform: uppercase;
+	letter-spacing: 0.7px;
+	margin-bottom: 5px;
+}
+
+.form-control{
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 15px;
+	outline: 0;
+	font-size: 16px;
+	cursor: pointer;
+	&:focus {
+		border-color: #66afe9;
+		outline: 0;
+		-webkit-box-shadow:
+			inset 0 1px 1px rgba(0, 0, 0, 0.075),
+			0 0 8px rgba(102, 175, 233, 0.6);
+		box-shadow:
+			inset 0 1px 1px rgba(0, 0, 0, 0.075),
+			0 0 8px rgba(102, 175, 233, 0.6);
+	}
+
+	&--select{
+		padding: 0 15px;
+		position: relative;
+		appearance: auto;
+		font-size: 1.4rem;
+		color: #2C2C2A;
+	}
+}

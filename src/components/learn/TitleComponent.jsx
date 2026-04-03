@@ -1,6 +1,6 @@
 const TitleTodo = () => {
 	return (
-		<h1 className="title">TO DO LIST</h1>
+		<h1 className="title">Thêm task</h1>
 	);
 }
 
