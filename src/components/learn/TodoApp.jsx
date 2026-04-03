@@ -19,12 +19,13 @@ const TodoApp = () => {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 
-	const addNewTodo = (name, priority) => {
+	const addNewTodo = (name, priority, date) => {
 		const newTask = {
 			id: randomIntFromInterval(1, 1000000),
 			name: name,
 			complete: false,
-			priority: priority
+			priority: priority,
+			date: date
 		}; {/*Khởi tạo 1 task mới*/ }
 		setTask([...tasks, newTask]); {/*Copy lại array tasks và thêm newsTask vào mảng tasks*/ }
 	}
@@ -59,19 +60,19 @@ const TodoApp = () => {
 	}
 
 	//Hàm này sẽ được truyền vào ListTodo để khi click vào nút Edit sẽ gọi hàm này và tìm ra task cần chỉnh sửa dựa vào id, sau đó setTaskEdited để đưa task đó lên FormToto
-	const editTask = (id, priority) => {
+	const editTask = (id, priority, date) => {
 		const currentTask = tasks.find(item => item.id === id);
 		if (currentTask) {
-			setTaskEdited({ ...currentTask, priority });
+			setTaskEdited({ ...currentTask, priority, date });
 		}
 	}
 
 
 	//Hàm này sẽ được truyền vào FormToto để khi click vào nút Add (khi đang chỉnh sửa) sẽ gọi hàm này và tìm ra task cần chỉnh sửa dựa vào id, sau đó cập nhật lại tên task đó và setTaskEdited(null) để reset form về trạng thái thêm mới
-	const updateTodo = (id, newName, newPriority) => {
+	const updateTodo = (id, newName, newPriority, newDate) => {
 		const newTask3 = tasks.map(item => {
 			if (item.id === id) {
-				return { ...item, name: newName, priority: newPriority }
+				return { ...item, name: newName, priority: newPriority, date: newDate };
 			}
 			return item;
 		});

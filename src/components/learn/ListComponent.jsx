@@ -7,8 +7,8 @@ const ListTodo = (props) => {
         deleteTask(id);
     }
 
-    const handleEdit = (id, priority) =>{
-        editTask(id, priority);
+    const handleEdit = (id, priority, date) =>{
+        editTask(id, priority, date);
     }
     //console.log(tasks);
     // const arr_task = props;
@@ -27,9 +27,10 @@ const ListTodo = (props) => {
                                 <span className={`task-name ${item.priority}`}>
                                     {item.name}
                                 </span>
+                                <span className="due-date">{item.date}</span>
                                 <div className="control">
                                     <button onClick={() => handleDelete(item.id)}>Delete</button>
-                                    <button onClick={() => handleEdit(item.id, item.priority)}>Edit</button>
+                                    <button onClick={() => handleEdit(item.id, item.priority, item.date)}>Edit</button>
                                 </div>
                             </li>
                             // The key needs to go on the outermost returned element.

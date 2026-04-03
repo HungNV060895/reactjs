@@ -148,7 +148,7 @@ img{
     display: block;
     width: 100%;
     text-align: left;
-    margin-left: 10%;
+    margin-left: 7%;
     position: relative;
     &::before{
         content: '';
@@ -171,6 +171,10 @@ img{
             background: orange;
         }
     }
+}
+
+.due-date{
+    margin-right: 5%;
 }
 
 
