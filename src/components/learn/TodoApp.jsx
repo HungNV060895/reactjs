@@ -92,18 +92,44 @@ const TodoApp = () => {
 		//khi filterStatus là 'all' thì callback trả về true cho mọi item, ngược lại chỉ trả về true cho những item có complete trùng với filterStatus (complete -> true, incomplete -> false)
 		&& (filterStatus === 'all' || item.complete === (filterStatus === 'complete'))
 	);
-	//console.log(filterProiority, filterStatus);
+	
+	const totalTask = tasks.length;
+	const totalComplete = tasks.filter(item => item.complete).length;
+	const totalIncomplete = totalTask - totalComplete;
+
 	return (
 		<>
 			<div className="wrapper">
 				<section className="sec-todo-app">
 					<div className="inner">
 						<TodoHeading/>
-						<TodoDashboard />
-						
+						<TodoDashboard totalTask={totalTask} totalComplete={totalComplete} totalIncomplete={totalIncomplete} />
 						<div className="todo-wrapper">
 							<div className="todo-wrapper__left">
-								<TodoPanelDate date={new Date()} />
+								<TodoPanelDate />
+								<div className="todo-panel todo-progress">
+									<h3 className="panel-label todo-form__ttl">Tiến độ</h3>
+									<div className="todo-progress__stats">
+										<div>
+											<div className="todo-progress__label">Hoàn thành</div>
+											<div className="todo-progress__label"><strong>3 / 7</strong> task</div>
+										</div>
+										<div className="todo-progress__percent">43%</div>
+									</div>
+									<div className="todo-progress__track">
+										<div className="todo-progress__fill"></div>
+									</div>
+									<div className="todo-progress__sub">
+										<div className="todo-progress__sub-item">
+											<div className="todo-progress__dot"></div>
+											<span>Hoàn thành: <strong>3</strong></span>
+										</div>
+										<div className="todo-progress__sub-item">
+											<div className="todo-progress__dot"></div>
+											<span>Chưa xong: <strong>4</strong></span>
+										</div>
+									</div>
+								</div>
 								<div className="todo-panel todo-form">
 									<FormToto
 										addNewTodo={addNewTodo} 
