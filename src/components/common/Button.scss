@@ -1,0 +1,13 @@
+/**
+ * Button Component Styles
+ */
+
+.custom-button {
+  // Add custom styles here if needed
+  // Ant Design provides most styling out of the box
+  
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}

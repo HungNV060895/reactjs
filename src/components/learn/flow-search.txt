@@ -1,0 +1,23 @@
+1️⃣ SearchComponent:
+   User gõ "React" → onChange event
+   → handleInputChange("React")
+   → setInputSearch("React")
+   → handleSearch("React")  ← Gọi function từ props
+   
+2️⃣ TodoApp nhận:
+   handleSearch = setSearchKeyword
+   → setSearchKeyword("React")
+   → searchKeyword state = "React"
+   → Component re-render
+   
+3️⃣ Filter logic (cùng TodoApp):
+   const filteredTasks = tasks.filter(item =>
+       item.name.toLowerCase().includes("React".toLowerCase())
+   )
+   → filteredTasks = [item chứa "React"]
+   
+4️⃣ Pass xuống ListComponent:
+   <ListTodo tasks={filteredTasks} />
+   
+5️⃣ ListComponent render:
+   Hiển thị chỉ items chứa "React"

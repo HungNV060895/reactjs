@@ -1,0 +1,44 @@
+@use 'vars' as *;
+
+.page-book{
+    min-height: 100vh;
+    padding: 10em 5%;
+    &__heading{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2em;
+    }
+}
+
+.box-action{
+    display: flex;
+    gap:  0 10px;
+}
+
+.book-detail{
+    dl{
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        dt, dd{
+            padding: 10px;
+        }
+        dt{
+            width: 100px;
+            background: #fff6f6;
+        }
+        dd{
+            width: calc(100% - 100px);
+            padding-left: 15px;
+        }
+    }
+}
+
+.ant-input-number-group-wrapper{
+    width: 100%;
+}
+
+.ant-input-number{
+    width: 100%;
+}
