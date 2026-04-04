@@ -333,3 +333,79 @@
 		margin-right: 0;
 	}
 }
+
+//Todo Progress
+.todo-progress{
+	&__item{
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 12px;
+		background: #EDE6D6;
+		border-radius: 0 10px 10px 0;
+		margin-bottom: 10px;
+		&:last-of-type{
+			margin-bottom: 0;
+		}
+		&.expired{
+			border-left: 3px solid red;
+		}
+	}
+	&__stats{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+	&__label{
+		font-size: 12px;
+		color: #5F5E5A;
+		strong{
+			font-weight: 700;
+			color: #2C2C2A;
+		}
+	}
+	&__percent{
+		font-size: 18px;
+		font-weight: 500;
+		color: #D85A30;
+	}
+	&__track{
+		background: #D3D1C7;
+		border-radius: 20px;
+		height: 8px;
+		width: 100%;
+		overflow: hidden;
+		margin-bottom: 10px;
+	}
+	&__fill{
+		background: #D85A30;
+		height: 100%;
+		border-radius: 20px;
+		width: 43%;
+	}
+	&__sub{
+		@include flex(0,0,wrap);
+		gap: 0 10px;
+		&-item{
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 12px;
+			color: #5F5E5A;
+			strong{
+				font-weight: 700;
+				color: #2C2C2A;
+			}
+		}
+		
+	}
+	&__dot{
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: #D3D1C7;
+		position: relative;
+		top: -2px;
+	}
+}

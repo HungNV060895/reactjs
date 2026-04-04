@@ -121,11 +121,11 @@ const TodoApp = () => {
 									</div>
 									<div className="todo-progress__sub">
 										<div className="todo-progress__sub-item">
-											<div className="todo-progress__dot"></div>
+											<div className="todo-progress__dot" style={{ backgroundColor: '#D85A30' }}></div>
 											<span>Hoàn thành: <strong>3</strong></span>
 										</div>
 										<div className="todo-progress__sub-item">
-											<div className="todo-progress__dot"></div>
+											<div className="todo-progress__dot" style={{ backgroundColor: '#D3D1C7' }}></div>
 											<span>Chưa xong: <strong>4</strong></span>
 										</div>
 									</div>
