@@ -9,7 +9,10 @@ import TodoProgress from "./TodoProgress";
 import { useEffect, useState } from "react";
 
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { APP_CONFIG } from "../../constants/APP_CONFIG";
+
+dayjs.extend(customParseFormat);
 
 const TodoApp = () => {
 	const [tasks, setTask] = useState(() => {
@@ -20,6 +23,7 @@ const TodoApp = () => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [filterProiority, setFilterPriority] = useState('all'); //all, low, medium, high
 	const [filterStatus, setFilterStatus] = useState('all'); //all, complete, incomplete
+	const [sortBy, setSortBy] = useState('none'); //none, date-asc, date-desc, priority-asc, priority-desc
 
 	const randomIntFromInterval = (min, max) => { // min and max included
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -50,11 +54,6 @@ const TodoApp = () => {
 		localStorage.setItem('tasks', JSON.stringify(tasks)); // Lưu tasks vào localStorage dưới dạng chuỗi JSON
 	}, [tasks]);
 
-
-	useEffect(() => {
-		const saved = localStorage.getItem('tasks');
-		if (saved) setTask(JSON.parse(saved));
-	}, []);
 
 	const deleteTask = (id) => {
 		const newTask2 = tasks.filter(item => item.id != id);
@@ -95,7 +94,14 @@ const TodoApp = () => {
 		&& (filterProiority === 'all' || item.priority === filterProiority)
 		//khi filterStatus là 'all' thì callback trả về true cho mọi item, ngược lại chỉ trả về true cho những item có complete trùng với filterStatus (complete -> true, incomplete -> false)
 		&& (filterStatus === 'all' || item.complete === (filterStatus === 'complete'))
-	);
+	).sort((a, b) => {
+		if (!a.date) return 1; // Đẩy task không có ngày xuống cuối
+		if (!b.date) return -1;
+		
+		const dateA = dayjs(a.date, APP_CONFIG.DATE_FORMAT).unix();
+		const dateB = dayjs(b.date, APP_CONFIG.DATE_FORMAT).unix();
+		return dateA - dateB;
+	});
 	
 	// Tính toán tổng số task, số task hoàn thành và số task chưa hoàn thành để truyền vào TodoDashboard và TodoProgress
 	const totalTask = tasks.length;
@@ -108,7 +114,7 @@ const TodoApp = () => {
 		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là quá hạn
 		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") < 0;
 	}).length;
-	
+
 	const totalUpcoming = tasks.filter(item => {
 		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là sắp hết hạn
 		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") > 0 && dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") <= 2;
