@@ -38,7 +38,7 @@ const TodoApp = () => {
 			complete: false,
 			priority: priority,
 			date: date,
-			createdAt: dayjs().format(APP_CONFIG.DATE_FORMAT),
+			createdAt: dayjs().valueOf(), // Lưu timestamp (số) để sort nhanh hơn
 		}; {/*Khởi tạo 1 task mới*/ }
 		setTask([...tasks, newTask]); {/*Copy lại array tasks và thêm newsTask vào mảng tasks*/ }
 	}
@@ -71,7 +71,7 @@ const TodoApp = () => {
 	const editTask = (id, priority, date) => {
 		const currentTask = tasks.find(item => item.id === id);
 		if (currentTask) {
-			setTaskEdited({ ...currentTask, priority, date, createdAt });
+			setTaskEdited({ ...currentTask, priority, date });
 		}
 	}
 
@@ -99,9 +99,8 @@ const TodoApp = () => {
 		&& (filterStatus === 'all' || item.complete === (filterStatus === 'complete'))
 	).sort((a, b) => {
 
-		//if(sortBy === 'none') return 0;
-		if(sortBy === 'newest') return (dayjs(b.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0) - (dayjs(a.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0);
-		if(sortBy === 'oldest') return (dayjs(a.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0) - (dayjs(b.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0);
+		if(sortBy === 'newest') return (b.createdAt || 0) - (a.createdAt || 0);
+		if(sortBy === 'oldest') return (a.createdAt || 0) - (b.createdAt || 0);
 		if(sortBy === 'expired'){
 			if (!a.date) return 1; // Đẩy task không có ngày xuống cuối
 			if (!b.date) return -1;
@@ -110,6 +109,7 @@ const TodoApp = () => {
 			const dateB = dayjs(b.date, APP_CONFIG.DATE_FORMAT).unix();
 			return dateA - dateB;
 		}
+		return 0; // Trả về 0 cho trường hợp 'none'
 	});
 	
 	// Tính toán tổng số task, số task hoàn thành và số task chưa hoàn thành để truyền vào TodoDashboard và TodoProgress
