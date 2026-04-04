@@ -1,5 +1,5 @@
 const TodoDashboard = (props) => {
-    const { totalTask, totalComplete, totalIncomplete } = props;
+    const { totalTask, totalExpired, totalUpcoming } = props;
 
     return (
         <ul className="todo-dashboard">
@@ -9,11 +9,11 @@ const TodoDashboard = (props) => {
             </li>
             <li className="todo-dashboard__item	todo-dashboard__item--primary">
                 <div className="todo-dashboard__item-ttl">Sắp hết hạn</div>
-                <div className="todo-dashboard__item-num">4</div>
+                <div className="todo-dashboard__item-num">{totalUpcoming}</div>
             </li>
             <li className="todo-dashboard__item todo-dashboard__item--secondary">
                 <div className="todo-dashboard__item-ttl">Quá hạn</div>
-                <div className="todo-dashboard__item-num">3</div>
+                <div className="todo-dashboard__item-num">{totalExpired}</div>
             </li>
         </ul>
     )

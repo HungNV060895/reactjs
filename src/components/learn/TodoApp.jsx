@@ -5,7 +5,11 @@ import logoEmpty from './../../assets/img/empty.png';
 import TodoHeading from "./TodoHeading";
 import TodoDashboard from "./TodoDashboard";
 import TodoPanelDate from "./TodoPanelDate";
+import TodoProgress from "./TodoProgress";
 import { useEffect, useState } from "react";
+
+import dayjs from 'dayjs';
+import { APP_CONFIG } from "../../constants/APP_CONFIG";
 
 const TodoApp = () => {
 	const [tasks, setTask] = useState(() => {
@@ -93,9 +97,22 @@ const TodoApp = () => {
 		&& (filterStatus === 'all' || item.complete === (filterStatus === 'complete'))
 	);
 	
+	// Tính toán tổng số task, số task hoàn thành và số task chưa hoàn thành để truyền vào TodoDashboard và TodoProgress
 	const totalTask = tasks.length;
 	const totalComplete = tasks.filter(item => item.complete).length;
 	const totalIncomplete = totalTask - totalComplete;
+
+	const today = dayjs().startOf('day');
+
+	const totalExpired = tasks.filter(item => {
+		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là quá hạn
+		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") < 0;
+	}).length;
+	
+	const totalUpcoming = tasks.filter(item => {
+		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là sắp hết hạn
+		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") > 0 && dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") <= 2;
+	}).length;
 
 	return (
 		<>
@@ -103,33 +120,11 @@ const TodoApp = () => {
 				<section className="sec-todo-app">
 					<div className="inner">
 						<TodoHeading/>
-						<TodoDashboard totalTask={totalTask} totalComplete={totalComplete} totalIncomplete={totalIncomplete} />
+						<TodoDashboard totalTask={totalTask} totalExpired={totalExpired} totalUpcoming={totalUpcoming} />
 						<div className="todo-wrapper">
 							<div className="todo-wrapper__left">
 								<TodoPanelDate />
-								<div className="todo-panel todo-progress">
-									<h3 className="panel-label todo-form__ttl">Tiến độ</h3>
-									<div className="todo-progress__stats">
-										<div>
-											<div className="todo-progress__label">Hoàn thành</div>
-											<div className="todo-progress__label"><strong>3 / 7</strong> task</div>
-										</div>
-										<div className="todo-progress__percent">43%</div>
-									</div>
-									<div className="todo-progress__track">
-										<div className="todo-progress__fill"></div>
-									</div>
-									<div className="todo-progress__sub">
-										<div className="todo-progress__sub-item">
-											<div className="todo-progress__dot" style={{ backgroundColor: '#D85A30' }}></div>
-											<span>Hoàn thành: <strong>3</strong></span>
-										</div>
-										<div className="todo-progress__sub-item">
-											<div className="todo-progress__dot" style={{ backgroundColor: '#D3D1C7' }}></div>
-											<span>Chưa xong: <strong>4</strong></span>
-										</div>
-									</div>
-								</div>
+								<TodoProgress totalTask={totalTask} totalComplete={totalComplete} totalIncomplete={totalIncomplete} />
 								<div className="todo-panel todo-form">
 									<FormToto
 										addNewTodo={addNewTodo} 

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { Tag, Flex } from 'antd';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { APP_CONFIG } from "../../constants/APP_CONFIG";
@@ -7,9 +8,7 @@ dayjs.extend(customParseFormat);
 
 const ListTodo = (props) => {
 	const { tasks, deleteTask, editTask, toogleComplete } = props;
-	// const handleGetID = (id) => {
-	//     return id;
-	// }
+	
 	const handleDelete = (id) => {
 		deleteTask(id);
 	}
@@ -23,10 +22,12 @@ const ListTodo = (props) => {
 		const diff = targetDate.diff(today, "day");
 
 		if (diff < 0) {
+			//setTaskExpired(prev => prev + 1);
 			return {
 				tag: <Tag color="error">Hết hạn</Tag>,
 				className: 'expired'
 			};
+			
 		} else if (diff === 0) {
 			return {tag: <Tag color="warning">Hạn hôm nay</Tag>, className: 'issue-today'};
 		} else if (diff <= 2) {
