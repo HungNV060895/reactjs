@@ -29,13 +29,16 @@ const TodoApp = () => {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 
+
+
 	const addNewTodo = (name, priority, date) => {
 		const newTask = {
 			id: randomIntFromInterval(1, 1000000),
 			name: name,
 			complete: false,
 			priority: priority,
-			date: date
+			date: date,
+			createdAt: dayjs().format(APP_CONFIG.DATE_FORMAT),
 		}; {/*Khởi tạo 1 task mới*/ }
 		setTask([...tasks, newTask]); {/*Copy lại array tasks và thêm newsTask vào mảng tasks*/ }
 	}
@@ -68,16 +71,16 @@ const TodoApp = () => {
 	const editTask = (id, priority, date) => {
 		const currentTask = tasks.find(item => item.id === id);
 		if (currentTask) {
-			setTaskEdited({ ...currentTask, priority, date });
+			setTaskEdited({ ...currentTask, priority, date, createdAt });
 		}
 	}
 
 
 	//Hàm này sẽ được truyền vào FormToto để khi click vào nút Add (khi đang chỉnh sửa) sẽ gọi hàm này và tìm ra task cần chỉnh sửa dựa vào id, sau đó cập nhật lại tên task đó và setTaskEdited(null) để reset form về trạng thái thêm mới
-	const updateTodo = (id, newName, newPriority, newDate) => {
+	const updateTodo = (id, newName, newPriority, newDate, newCreatedAt) => {
 		const newTask3 = tasks.map(item => {
 			if (item.id === id) {
-				return { ...item, name: newName, priority: newPriority, date: newDate };
+				return { ...item, name: newName, priority: newPriority, date: newDate, createdAt: newCreatedAt};
 			}
 			return item;
 		});
@@ -95,12 +98,18 @@ const TodoApp = () => {
 		//khi filterStatus là 'all' thì callback trả về true cho mọi item, ngược lại chỉ trả về true cho những item có complete trùng với filterStatus (complete -> true, incomplete -> false)
 		&& (filterStatus === 'all' || item.complete === (filterStatus === 'complete'))
 	).sort((a, b) => {
-		if (!a.date) return 1; // Đẩy task không có ngày xuống cuối
-		if (!b.date) return -1;
-		
-		const dateA = dayjs(a.date, APP_CONFIG.DATE_FORMAT).unix();
-		const dateB = dayjs(b.date, APP_CONFIG.DATE_FORMAT).unix();
-		return dateA - dateB;
+
+		//if(sortBy === 'none') return 0;
+		if(sortBy === 'newest') return (dayjs(b.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0) - (dayjs(a.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0);
+		if(sortBy === 'oldest') return (dayjs(a.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0) - (dayjs(b.createdAt, APP_CONFIG.DATE_FORMAT).unix() || 0);
+		if(sortBy === 'expired'){
+			if (!a.date) return 1; // Đẩy task không có ngày xuống cuối
+			if (!b.date) return -1;
+			
+			const dateA = dayjs(a.date, APP_CONFIG.DATE_FORMAT).unix();
+			const dateB = dayjs(b.date, APP_CONFIG.DATE_FORMAT).unix();
+			return dateA - dateB;
+		}
 	});
 	
 	// Tính toán tổng số task, số task hoàn thành và số task chưa hoàn thành để truyền vào TodoDashboard và TodoProgress
@@ -147,6 +156,8 @@ const TodoApp = () => {
 										filterStatus={filterStatus}
 										setFilterPriority={setFilterPriority}
 										setFilterStatus={setFilterStatus}
+										setSortBy={setSortBy}
+										sortBy={sortBy}
 									/>
 								</div>
 								{filteredTasks.length > 0 ?

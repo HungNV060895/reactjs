@@ -77,7 +77,7 @@ const FormToto = (props) => {
 			<div className="todo-form__field">
 				<div className="todo-form__date">
 					<Space direction="vertical">
-						<DatePicker format={APP_CONFIG.DATE_FORMAT} className="form-control" onChange={(date) => handleDate(date)} value={valueDate} />
+						<DatePicker format={APP_CONFIG.DATE_FORMAT} className="form-control" onChange={(date) => handleDate(date)} value={valueDate} placeholder="Ngày hết hạn..." />
 					</Space>
 				</div>
 			</div>

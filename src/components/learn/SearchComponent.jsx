@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const SearchTodo = (props) => {
     //console.log(props);
-    const {  handleSearch, filterProiority, filterStatus, setFilterPriority, setFilterStatus } = props;
+    const { handleSearch, filterProiority, filterStatus, setFilterPriority, setFilterStatus, sortBy, setSortBy } = props;
     const [inputSearch, setInputSearch] = useState("");
 
     const handleInputChange = (event) => {
@@ -16,12 +16,14 @@ const SearchTodo = (props) => {
 
     const handlePriorityChange = (priority) => {
         setFilterPriority(priority);
-        console.log(priority);
     }
 
     const handleStatusChange = (status) => {
         setFilterStatus(status);
-        console.log(status);
+    }
+
+    const handleSortByChange = (sort) => {
+        setSortBy(sort);
     }
 
     return(
@@ -48,6 +50,17 @@ const SearchTodo = (props) => {
                                 <option value="all">Tất cả</option>
                                 <option value="complete">Hoàn thành</option>
                                 <option value="incomplete">Chưa hoàn thành</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt className="panel-label">Sort by:</dt>
+                        <dd>
+                            <select name="sortBy" id="sortBy" className="form-control form-control--select" onChange={(e)=>handleSortByChange(e.target.value)} value={sortBy}>
+                                <option value="none">None</option>
+                                <option value="newest">Mới nhất</option>
+                                <option value="oldest">Cũ nhất</option>
+                                <option value="expired">Hạn gần nhất</option>
                             </select>
                         </dd>
                     </dl>
