@@ -1,0 +1,334 @@
+// ============================================
+// Weather Component - BEM
+// ============================================
+
+// Variables
+$color-bg: #EAF3FB;
+$color-card-main: #185FA5;
+$color-card-main-dark: #0C447C;
+$color-text-light: #E6F1FB;
+$color-text-muted: #85B7EB;
+$color-text-secondary: #B5D4F4;
+$color-accent-sun: #FAC775;
+$color-accent-cloud: #B5D4F4;
+$color-accent-rain: #85B7EB;
+$color-border: #D3D1C7;
+$border-radius-sm: 8px;
+$border-radius-md: 10px;
+$border-radius-lg: 14px;
+$border-radius-xl: 20px;
+
+// ============================================
+// Block: weather
+// ============================================
+.weather {
+	background: $color-bg;
+	border-radius: $border-radius-xl;
+	padding: 1.5rem;
+	max-width: 720px;
+	margin: 0 auto;
+
+	// ----------------------------------------
+	// Element: weather__search
+	// ----------------------------------------
+	&__search {
+		display: flex;
+		gap: 8px;
+		margin-bottom: 14px;
+	}
+
+	&__search-input {
+		flex: 1;
+		padding: 8px 12px;
+		border-radius: $border-radius-md;
+		border: 0.5px solid $color-border;
+		background: #fff;
+		color: #2C2C2A;
+		font-size: 14px;
+		outline: none;
+
+		&::placeholder {
+			color: #888780;
+		}
+
+		&:focus {
+			border-color: $color-card-main;
+		}
+	}
+
+	&__search-btn {
+		padding: 8px 16px;
+		border-radius: $border-radius-md;
+		background: $color-card-main;
+		border: none;
+		color: $color-text-light;
+		font-size: 13px;
+		cursor: pointer;
+
+		&:hover {
+			background: $color-card-main-dark;
+		}
+	}
+
+	// ----------------------------------------
+	// Element: weather__top
+	// ----------------------------------------
+	&__top {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 14px;
+		margin-bottom: 14px;
+	}
+
+	// ----------------------------------------
+	// Element: weather__bottom
+	// ----------------------------------------
+	&__bottom {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 10px;
+	}
+}
+
+// ============================================
+// Block: main-card
+// ============================================
+.main-card {
+	background: $color-card-main;
+	border-radius: $border-radius-lg;
+	padding: 1.5rem;
+	color: $color-text-light;
+
+	&__city-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+	}
+
+	&__city-name {
+		font-size: 20px;
+		font-weight: 500;
+		color: $color-text-light;
+	}
+
+	&__city-date {
+		font-size: 12px;
+		color: $color-text-muted;
+		margin-top: 3px;
+	}
+
+	&__icon-wrap {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1rem;
+		font-size: 1rem;
+	}
+
+	&__temp-row {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+		margin-bottom: 6px;
+	}
+
+	&__temp {
+		font-size: 56px;
+		font-weight: 500;
+		color: #fff;
+		line-height: 1;
+		overflow: hidden;
+	}
+
+	&__temp-unit {
+		font-size: 22px;
+		color: $color-text-muted;
+		padding-bottom: 8px;
+	}
+
+	&__desc {
+		font-size: 14px;
+		color: $color-text-secondary;
+		margin-bottom: 1rem;
+	}
+
+	&__detail-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+
+	&__detail-item {
+		background: $color-card-main-dark;
+		border-radius: $border-radius-md;
+		padding: 10px;
+		text-align: center;
+	}
+
+	&__detail-val {
+		font-size: 16px;
+		font-weight: 500;
+		color: $color-text-light;
+	}
+
+	&__detail-lbl {
+		font-size: 11px;
+		color: $color-text-muted;
+		margin-top: 2px;
+	}
+}
+
+// ============================================
+// Block: right-col
+// ============================================
+.right-col {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+// ============================================
+// Block: panel
+// ============================================
+.panel {
+	background: #fff;
+	border-radius: $border-radius-lg;
+	padding: 14px;
+	border: 0.5px solid $color-border;
+
+	&__title {
+		font-size: 11px;
+		font-weight: 500;
+		color: #888780;
+		text-transform: uppercase;
+		letter-spacing: 0.7px;
+		margin-bottom: 10px;
+	}
+}
+
+// ============================================
+// Block: hourly
+// ============================================
+.hourly {
+	display: flex;
+	gap: 8px;
+
+	&__item {
+		flex: 1;
+		background: #F5F5F3;
+		border-radius: $border-radius-md;
+		padding: 8px 4px;
+		text-align: center;
+
+		// Modifier: active
+		&--active {
+			background: $color-card-main;
+
+			.hourly__time {
+				color: $color-text-muted;
+			}
+
+			.hourly__temp {
+				color: #fff;
+			}
+		}
+	}
+
+	&__time {
+		font-size: 11px;
+		color: #888780;
+	}
+
+	&__icon {
+		margin: 4px auto;
+		display: block;
+	}
+
+	&__temp {
+		font-size: 14px;
+		font-weight: 500;
+		color: #2C2C2A;
+		margin-top: 4px;
+	}
+}
+
+// ============================================
+// Block: forecast
+// ============================================
+.forecast {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 8px 10px;
+		background: #F5F5F3;
+		border-radius: $border-radius-sm;
+	}
+
+	&__dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		flex-shrink: 0;
+	}
+
+	&__day {
+		font-size: 13px;
+		color: #2C2C2A;
+		font-weight: 500;
+		flex: 1;
+	}
+
+	&__desc {
+		font-size: 12px;
+		color: #888780;
+		flex: 1;
+	}
+
+	&__temps {
+		font-size: 13px;
+		color: #2C2C2A;
+
+		span {
+			color: #888780;
+			font-size: 12px;
+		}
+	}
+}
+
+// ============================================
+// Block: stat-card
+// ============================================
+.stat-card {
+	background: #fff;
+	border-radius: $border-radius-lg;
+	padding: 14px;
+	border: 0.5px solid $color-border;
+	text-align: center;
+
+	&__icon {
+		width: 32px;
+		height: 32px;
+		border-radius: $border-radius-sm;
+		margin: 0 auto 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__val {
+		font-size: 18px;
+		font-weight: 500;
+		color: #2C2C2A;
+	}
+
+	&__lbl {
+		font-size: 11px;
+		color: #888780;
+		margin-top: 2px;
+	}
+}

@@ -2,7 +2,7 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, message } from 'antd';
 import {
 	UsergroupAddOutlined, LoginOutlined,
-	HomeOutlined, AuditOutlined, AliwangwangOutlined, CodeSandboxOutlined,
+	HomeOutlined, AuditOutlined, AliwangwangOutlined, SunOutlined,
 	ProductOutlined
 } from '@ant-design/icons';
 import { useContext, useEffect, useState } from 'react';
@@ -18,10 +18,10 @@ const Header = () => {
 
 	useEffect(() => {
 		if (location && location.pathname) {
-			const allRouters = ['user', 'book'];
-			const currentRouters = allRouters.find(item => `/${item}` === location.pathname);
-			if (currentRouters) {
-				setCurrent(currentRouters);
+			const allRouters = ['user', 'book', 'weather', 'product'];
+			const currentRouter = allRouters.find(item => `/${item}` === location.pathname);
+			if (currentRouter) {
+				setCurrent(currentRouter);
 			} else {
 				setCurrent('home');
 			}
@@ -62,9 +62,9 @@ const Header = () => {
 			icon: <UsergroupAddOutlined />
 		},
 		{
-			label: <Link to={"/demo"}>Demo</Link>,
-			key: 'demo',
-			icon: <CodeSandboxOutlined />
+			label: <Link to={"/weather"}>Wheather</Link>,
+			key: 'weather',
+			icon: <SunOutlined />
 		},
 		{
 			label: <Link to={"/product"}>Product</Link>,
@@ -97,12 +97,16 @@ const Header = () => {
 	];
 
 	return (
-		<Menu
-			onClick={onClick}
-			selectedKeys={[current]}
-			mode="horizontal"
-			items={items}
-		/>
+		<header id='main-header'>
+			<div className="inner">
+				<Menu
+					onClick={onClick}
+					selectedKeys={[current]}
+					mode="horizontal"
+					items={items}
+				/>
+			</div>
+		</header>
 	)
 }
 

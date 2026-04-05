@@ -1,0 +1,31 @@
+@use 'vars' as *;
+
+#main-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: #2C2C2A;
+    padding: 2em 0;
+    width: 100%;
+}
+
+.ant-menu-light{
+    background: transparent;
+    height: auto;
+    overflow: hidden;
+    .ant-menu-item .ant-menu-item-icon{
+        color: #B4B2A9;
+        font-size: 1.6rem;
+        & + span{
+            color: #B4B2A9;
+        }
+    }
+}
+.ant-menu-horizontal .ant-menu-item{
+    padding-bottom: 4px;
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after{
+    border-bottom-color: #D85A30;
+}

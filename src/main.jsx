@@ -18,7 +18,7 @@ import {
 import TodoApp from './components/learn/TodoApp.jsx';
 import PrivateRoute from './pages/private.route.jsx';
 import ProductPage from './pages/product.jsx';
-import Demo from './pages/demo.jsx';
+import Weather from './pages/weather.jsx';
 
 
 const router = createBrowserRouter([
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
       },
       {
         index: true,
-        path: "/demo",
-        element: <Demo/>
+        path: "/weather",
+        element: <Weather/>
       },
       {
         path: "/user",
