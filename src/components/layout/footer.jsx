@@ -1,7 +1,11 @@
 const Footer = () => {
     return (
         <>
-            <div className="footer">Footer</div>
+        <footer id="main-footer">
+            <div className="inner">
+                &copy; Copyright by HungNV
+            </div>
+        </footer>
         </>
     )
 }

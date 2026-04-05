@@ -1,4 +1,6 @@
 @use 'vars';
+@use 'header';
+@use 'footer';
 @use 'reset';
 @use 'modules';
 @use 'base';
@@ -7,3 +9,4 @@
 @use 'book';
 @use 'product';
 @use 'todoapp';
+@use 'weather';
