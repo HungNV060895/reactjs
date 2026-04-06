@@ -62,7 +62,7 @@ const Header = () => {
 			icon: <UsergroupAddOutlined />
 		},
 		{
-			label: <Link to={"/weather"}>Wheather</Link>,
+			label: <Link to={"/weather"}>Weather</Link>,
 			key: 'weather',
 			icon: <SunOutlined />
 		},

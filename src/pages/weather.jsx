@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import SearchBar from "../components/weather/SearchBar";
-import MainCard from "../components/weather/MainCard";
+import SearchBar from "../components/weather/WeatherSearch";
+import MainCard from "../components/weather/WeatherMain";
 import HourlyPanel from "../components/weather/HourlyPanel";
 import ForecastPanel from "../components/weather/ForecastPanel";
 import StatCard from "../components/weather/StatCard";
+import { fetchWeather } from "../services/api.service";
 
 const Weather = () => {
-	const [city, setCity] = useState("Hồ Chí Minh");
+	const [city, setCity] = useState("Ha Noi");
 	const [weatherData, setWeatherData] = useState(null);
-
+	const [loading, setLoading] = useState(false);
+	
+	useEffect(() => {
+		const fetchAPI = async () => {
+			setLoading(true);
+			const data = await fetchWeather(city);
+			setWeatherData(data);
+		}
+		setLoading(false);
+		fetchAPI();
+	},[city]);
+	
 	return (
 		<div className="wrapper">
 			<section className="sec-weather">
