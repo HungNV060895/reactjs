@@ -5,23 +5,29 @@ import MainCard from "../components/weather/WeatherMain";
 import HourlyPanel from "../components/weather/HourlyPanel";
 import ForecastPanel from "../components/weather/ForecastPanel";
 import StatCard from "../components/weather/StatCard";
-import { fetchWeather } from "../services/api.service";
+import { fetchWeather, fetchWeather2} from "../services/api.service";
 
 const Weather = () => {
 	const [city, setCity] = useState("Ha Noi");
 	const [weatherData, setWeatherData] = useState(null);
+	const [weatherData2, setWeatherData2] = useState(null);
 	const [loading, setLoading] = useState(false);
 	
 	useEffect(() => {
 		const fetchAPI = async () => {
 			setLoading(true);
 			const data = await fetchWeather(city);
+			const data2 = await fetchWeather2(city);
 			setWeatherData(data);
+			setWeatherData2(data2)
 		}
+		
 		setLoading(false);
 		fetchAPI();
 	},[city]);
-	
+
+
+	//console.log(weatherData2?.list);
 	return (
 		<div className="wrapper">
 			<section className="sec-weather">
@@ -41,7 +47,7 @@ const Weather = () => {
 							<div className="right-col">
 
 								{/* Hourly panel */}
-								<HourlyPanel hours={weatherData?.hourly} />
+								<HourlyPanel data={weatherData2?.list} />
 
 								{/* Forecast panel */}
 								<ForecastPanel forecast={weatherData?.forecast} />
@@ -51,10 +57,10 @@ const Weather = () => {
 
 						{/* Bottom stats */}
 						<div className="weather__bottom">
-							<StatCard label="Áp suất" value="1012" icon="pressure" />
-							<StatCard label="Độ ẩm" value="78%" icon="humidity"/>
+							<StatCard label="Áp suất" value={weatherData?.main.pressure} icon="pressure" />
+							<StatCard label="Độ ẩm" value={weatherData?.main.humidity + '%'} icon="humidity"/>
 							<StatCard label="Chỉ số UV" value="UV 8" icon="humidity"/>
-							<StatCard label="Tốc độ gió" value="12 km/h" icon="wind"/>
+							<StatCard label="Tốc độ gió" value={weatherData?.wind.speed + 'km/h'} icon="wind"/>
 						</div>
 					</div>
 				</div>

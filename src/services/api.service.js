@@ -134,6 +134,7 @@ const logoutAPI = () => {
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
+const BASE_URL2 = "https://api.openweathermap.org/data/2.5";
 
 const fetchWeather = async (city) => {
 	try{
@@ -152,8 +153,26 @@ const fetchWeather = async (city) => {
 	}
 };
 
+const fetchWeather2 = async (city) => {
+	try{
+		const res = await axios.get(`${BASE_URL2}/forecast`, {
+			params: {
+				exclude: "current,minutely,hourly,daily",
+				q: city,
+				appid: API_KEY,
+				units: "metric",  // nhiệt độ Celsius
+				lang: "vi",       // mô tả tiếng Việt
+			}
+		});
+		return res.data;
+	}catch(err){
+		console.log("Status:", err.response?.status);
+		console.log("Message:", err.response?.data?.message);
+	}
+};
+
 export {
 	createUserAPI, UpdateUserAPI, fetchAllUserAPI, DeleteUserAPI, handleUploadFileAPI,
 	UpdateUserAvatarAPI, registerUserAPI, loginAPI, getAccountAPI, logoutAPI,
-	fetchAllBookAPI, createBookAPI, UpdateBookAPI, DeleteBookAPI, fetchWeather
+	fetchAllBookAPI, createBookAPI, UpdateBookAPI, DeleteBookAPI, fetchWeather, fetchWeather2
 }

@@ -19,7 +19,7 @@ const MainCard = ({data}) => { // lấy riêng thuộc tính data trong object
 
 	const { name, main, weather, wind, clouds } = data;
 	
-	console.log(data);
+	//console.log(data);
 	return (
 		<div className="main-card">
 			<div className="main-card__city-row">
