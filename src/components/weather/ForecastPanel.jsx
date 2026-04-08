@@ -24,7 +24,6 @@ const ForecastPanel = ({forecast}) => {
 	useEffect(() => {
 		if(forecast){
 			const dataFilter = forecast.filter((item) => item.dt_txt.includes('12:00:00'));
-			console.log(dataFilter);
 			setForecastData(dataFilter);
 		}
 	}, [forecast]);
