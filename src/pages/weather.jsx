@@ -16,13 +16,17 @@ const Weather = () => {
 	useEffect(() => {
 		const fetchAPI = async () => {
 			setLoading(true);
-			const data = await fetchWeather(city);
-			const data2 = await fetchWeather2(city);
-			setWeatherData(data);
-			setWeatherData2(data2)
+			try {
+				const data = await fetchWeather(city);
+				const data2 = await fetchWeather2(city);
+				setWeatherData(data);
+				setWeatherData2(data2);
+			} catch (error) {
+				console.error("Failed to fetch weather:", error);
+			} finally {
+				setLoading(false);
+			}
 		}
-		
-		setLoading(false);
 		fetchAPI();
 	},[city]);
 
@@ -33,6 +37,8 @@ const Weather = () => {
 			<section className="sec-weather">
 				<div className="inner">
 					<div className="weather">
+
+						{loading && <div className="weather__loading">Đang tải dữ liệu...</div>}
 
 						{/* Search */}
 						<SearchBar onSearch={setCity} />
@@ -50,17 +56,17 @@ const Weather = () => {
 								<HourlyPanel data={weatherData2?.list} />
 
 								{/* Forecast panel */}
-								<ForecastPanel forecast={weatherData?.forecast} />
+								<ForecastPanel forecast={weatherData2?.list} />
 
 							</div>
 						</div>
 
 						{/* Bottom stats */}
 						<div className="weather__bottom">
-							<StatCard label="Áp suất" value={weatherData?.main.pressure} icon="pressure" />
-							<StatCard label="Độ ẩm" value={weatherData?.main.humidity + '%'} icon="humidity"/>
+							<StatCard label="Áp suất" value={weatherData?.main?.pressure} icon="pressure" />
+							<StatCard label="Độ ẩm" value={weatherData?.main?.humidity ? `${weatherData.main.humidity}%` : '--'} icon="humidity"/>
 							<StatCard label="Chỉ số UV" value="UV 8" icon="humidity"/>
-							<StatCard label="Tốc độ gió" value={weatherData?.wind.speed + 'km/h'} icon="wind"/>
+							<StatCard label="Tốc độ gió" value={weatherData?.wind?.speed ? `${weatherData.wind.speed} km/h` : '--'} icon="wind"/>
 						</div>
 					</div>
 				</div>

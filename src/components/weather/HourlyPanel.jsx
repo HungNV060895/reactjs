@@ -1,18 +1,5 @@
-import useCurrentTime from "../../hooks/useCurrentTime";
-import { useState } from "react";
-import dayjs from 'dayjs';
-import "dayjs/locale/vi";
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-dayjs.locale("vi");
-dayjs.extend(customParseFormat);
+const HourlyPanel = () => {
 
-
-const HourlyPanel = ({data}) => {
-
-	const [forecastData, setForecastData] = useState([]);
-
-	if(data) console.log(data);
-	console.log(dayjs().unix());
 	return (
 		<div className="panel">
 			<div className="panel__title">Theo giờ</div>

@@ -13,7 +13,7 @@ const WeatherIcon = ({ condition }) => {
 	return icons[condition] ?? <WiDaySunny size={72} color="#FAC775" />;
 };
 
-const MainCard = ({data}) => { // lấy riêng thuộc tính data trong object
+const WeatherMain = ({data}) => { // Đổi tên cho đồng bộ với file
 	const today = useCurrentTime();
 	if(!data) return <div className="main-card">Thời tiết đang được cập nhật</div>
 
@@ -37,19 +37,19 @@ const MainCard = ({data}) => { // lấy riêng thuộc tính data trong object
 				<div className="main-card__temp">{Math.round(main?.temp)}</div>
 				<div className="main-card__temp-unit">°C</div>
 			</div>
-			<div className="main-card__desc">{weather[0].description}</div>
+			<div className="main-card__desc">{weather?.[0]?.description}</div>
 
 			<div className="main-card__detail-row">
 				<div className="main-card__detail-item">
-					<div className="main-card__detail-val">{main.humidity}%</div>
+					<div className="main-card__detail-val">{main?.humidity}%</div>
 					<div className="main-card__detail-lbl">Độ ẩm</div>
 				</div>
 				<div className="main-card__detail-item">
-					<div className="main-card__detail-val">{wind.speed} km/h</div>
+					<div className="main-card__detail-val">{wind?.speed} km/h</div>
 					<div className="main-card__detail-lbl">Gió</div>
 				</div>
 				<div className="main-card__detail-item">
-					<div className="main-card__detail-val">{clouds.all}%</div>
+					<div className="main-card__detail-val">{clouds?.all}%</div>
 					<div className="main-card__detail-lbl">Mây</div>
 				</div>
 			</div>
@@ -57,4 +57,4 @@ const MainCard = ({data}) => { // lấy riêng thuộc tính data trong object
 	)
 }
 
-export default MainCard;
+export default WeatherMain;
