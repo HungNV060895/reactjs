@@ -17,10 +17,13 @@ const Weather = () => {
 		const fetchAPI = async () => {
 			setLoading(true);
 			try {
-				const data = await fetchWeather(city);
-				const data2 = await fetchWeather2(city);
-				setWeatherData(data);
-				setWeatherData2(data2);
+				// Gọi song song 2 API để tối ưu performance
+				const [current, forecast] = await Promise.all([
+					fetchWeather(city),
+					fetchWeather2(city)
+				]);
+				setWeatherData(current);
+				setWeatherData2(forecast);
 			} catch (error) {
 				console.error("Failed to fetch weather:", error);
 			} finally {
