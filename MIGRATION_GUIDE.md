@@ -39,7 +39,7 @@ npm install -D typescript @types/react @types/react-dom @types/node
 
 **Cần tạo thêm:**
 - [ ] `src/types/book.type.ts` - Book types
-- [ ] `src/types/product.type.ts` - Product types
+- [x] `src/types/product.type.ts` - Product types
 
 ### Phase 3: Tạo Utilities & Constants (✅ Hoàn thành)
 
@@ -75,6 +75,7 @@ npm install -D typescript @types/react @types/react-dom @types/node
    ```bash
    # Rename và thêm types
    src/components/context/auth.context.jsx → auth.context.tsx
+   ✅ src/components/context/cart.context.tsx (Hoàn thành)
    ```
 
 2. **Layout Components**

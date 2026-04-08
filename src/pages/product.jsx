@@ -4,13 +4,16 @@ import { Button } from "antd";
 const ProductPage = (props) => {
     return (
         <>
-            <div className="product-page">
-                <div className="inner">
-                    <h1 className="product-ttl">Page product</h1>
-                    <ProductList />
-                    <ProductForm />
-                    <Button type="primary">Add Product</Button>
-                </div>
+            <div className="wrapper">
+                <section className="sec-product">
+                    <div className="inner">
+                        <h1 className="product-ttl">Page product</h1>
+                        <ProductList />
+                        <ProductForm />
+                        <Button type="primary">Add Product</Button>
+                    </div>
+
+                </section>
             </div>
         </>
     )

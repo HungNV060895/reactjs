@@ -1,9 +1,9 @@
 const ProductList = () => {
 
 return (
-    <>
-        <h2 className="product-ttlsub">Product List</h2>
-    </>
+	<>
+		<h2 className="product-ttlsub">Product List</h2>
+	</>
 )
 }
 

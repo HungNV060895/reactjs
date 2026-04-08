@@ -6,6 +6,7 @@ import BookPage from './pages/book.jsx';
 import "../src/assets/scss/style.scss";
 import ErrorPage from './pages/error.jsx';
 import { AuthWrapper } from './components/context/auth.context.jsx';
+import { CartProvider } from './components/context/cart.context';
 
 import 'nprogress/nprogress.css';
 
@@ -65,6 +66,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <AuthWrapper>
-      <RouterProvider router={router} />  {/* Component children of AuthWrapper component */}
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </AuthWrapper>
 )
