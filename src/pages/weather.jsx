@@ -1,20 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import SearchBar from "../components/weather/SearchBar";
-import MainCard from "../components/weather/MainCard";
+import SearchBar from "../components/weather/WeatherSearch";
+import MainCard from "../components/weather/WeatherMain";
 import HourlyPanel from "../components/weather/HourlyPanel";
 import ForecastPanel from "../components/weather/ForecastPanel";
 import StatCard from "../components/weather/StatCard";
+import { fetchWeather, fetchWeather2} from "../services/api.service";
 
 const Weather = () => {
-	const [city, setCity] = useState("Hồ Chí Minh");
+	const [city, setCity] = useState("Ha Noi");
 	const [weatherData, setWeatherData] = useState(null);
+	const [weatherData2, setWeatherData2] = useState(null);
+	const [loading, setLoading] = useState(false);
+	
+	useEffect(() => {
+		const fetchAPI = async () => {
+			setLoading(true);
+			try {
+				// Gọi song song 2 API để tối ưu performance
+				const [current, forecast] = await Promise.all([
+					fetchWeather(city),
+					fetchWeather2(city)
+				]);
+				setWeatherData(current);
+				setWeatherData2(forecast);
+			} catch (error) {
+				console.error("Failed to fetch weather:", error);
+			} finally {
+				setLoading(false);
+			}
+		}
+		fetchAPI();
+	},[city]);
 
+
+	//console.log(weatherData2?.list);
 	return (
 		<div className="wrapper">
 			<section className="sec-weather">
 				<div className="inner">
 					<div className="weather">
+
+						{loading && <div className="weather__loading">Đang tải dữ liệu...</div>}
 
 						{/* Search */}
 						<SearchBar onSearch={setCity} />
@@ -29,20 +56,20 @@ const Weather = () => {
 							<div className="right-col">
 
 								{/* Hourly panel */}
-								<HourlyPanel hours={weatherData?.hourly} />
+								<HourlyPanel data={weatherData2?.list} />
 
 								{/* Forecast panel */}
-								<ForecastPanel forecast={weatherData?.forecast} />
+								<ForecastPanel forecast={weatherData2?.list} />
 
 							</div>
 						</div>
 
 						{/* Bottom stats */}
 						<div className="weather__bottom">
-							<StatCard label="Áp suất" value="1012" icon="pressure" />
-							<StatCard label="Độ ẩm" value="78%" icon="humidity"/>
+							<StatCard label="Áp suất" value={weatherData?.main?.pressure} icon="pressure" />
+							<StatCard label="Độ ẩm" value={weatherData?.main?.humidity ? `${weatherData.main.humidity}%` : '--'} icon="humidity"/>
 							<StatCard label="Chỉ số UV" value="UV 8" icon="humidity"/>
-							<StatCard label="Tốc độ gió" value="12 km/h" icon="wind"/>
+							<StatCard label="Tốc độ gió" value={weatherData?.wind?.speed ? `${weatherData.wind.speed} km/h` : '--'} icon="wind"/>
 						</div>
 					</div>
 				</div>

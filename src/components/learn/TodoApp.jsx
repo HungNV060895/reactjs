@@ -6,7 +6,8 @@ import TodoHeading from "./TodoHeading";
 import TodoDashboard from "./TodoDashboard";
 import TodoPanelDate from "./TodoPanelDate";
 import TodoProgress from "./TodoProgress";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useMemo } from "react";
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -113,21 +114,21 @@ const TodoApp = () => {
 	});
 	
 	// Tính toán tổng số task, số task hoàn thành và số task chưa hoàn thành để truyền vào TodoDashboard và TodoProgress
-	const totalTask = tasks.length;
-	const totalComplete = tasks.filter(item => item.complete).length;
+	const { totalTask, totalComplete, totalExpired, totalUpcoming } = useMemo(() => {
+		const today = dayjs().startOf('day');
+		return {
+			totalTask: tasks.length,
+			totalComplete: tasks.filter(t => t.complete).length,
+			totalExpired: tasks.filter(t => t.date && dayjs(t.date, APP_CONFIG.DATE_FORMAT).isBefore(today, 'day')).length,
+			totalUpcoming: tasks.filter(t => {
+				if (!t.date) return false;
+				const diff = dayjs(t.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, 'day');
+				return diff > 0 && diff <= 2;
+			}).length
+		}
+	}, [tasks]);
+
 	const totalIncomplete = totalTask - totalComplete;
-
-	const today = dayjs().startOf('day');
-
-	const totalExpired = tasks.filter(item => {
-		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là quá hạn
-		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") < 0;
-	}).length;
-
-	const totalUpcoming = tasks.filter(item => {
-		if(!item.date) return false; // Nếu không có ngày tháng thì không tính là sắp hết hạn
-		return dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") > 0 && dayjs(item.date, APP_CONFIG.DATE_FORMAT).startOf('day').diff(today, "day") <= 2;
-	}).length;
 
 	return (
 		<>

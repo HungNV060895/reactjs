@@ -63,14 +63,14 @@ const DeleteBookAPI = (_id) => {
 
 const fetchAllUserAPI = (current, pageSize) => {
 	const URL_BACKEND = `/api/v1/user/?current=${current}&pageSize=${pageSize}`;
-	
+
 	return axios.get(URL_BACKEND);
 }
 
 
 const fetchAllBookAPI = (current, pageSize) => {
 	const URL_BACKEND = `/api/v1/book/?current=${current}&pageSize=${pageSize}`;
-	
+
 	return axios.get(URL_BACKEND);
 }
 
@@ -85,7 +85,7 @@ const handleUploadFileAPI = (file, folder) => {
 			"Content-Type": "multipart/form-data"
 		}
 	}
-	return axios.post(URL_BACKEND, bodyFormData ,config);
+	return axios.post(URL_BACKEND, bodyFormData, config);
 }
 
 
@@ -132,8 +132,47 @@ const logoutAPI = () => {
 	return axios.post(URL_BACKEND);
 }
 
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
+const BASE_URL2 = "https://api.openweathermap.org/data/2.5";
+
+const fetchWeather = async (city) => {
+	try{
+		const res = await axios.get(`${BASE_URL}/weather`, {
+			params: {
+				q: city,
+				appid: API_KEY,
+				units: "metric",  // nhiệt độ Celsius
+				lang: "vi",       // mô tả tiếng Việt
+			}
+		});
+		return res.data;
+	}catch(err){
+		console.log("Status:", err.response?.status);
+		console.log("Message:", err.response?.data?.message);
+	}
+};
+
+const fetchWeather2 = async (city) => {
+	try{
+		const res = await axios.get(`${BASE_URL2}/forecast`, {
+			params: {
+				exclude: "current,minutely,hourly,daily",
+				q: city,
+				appid: API_KEY,
+				units: "metric",  // nhiệt độ Celsius
+				lang: "vi",       // mô tả tiếng Việt
+			}
+		});
+		return res.data;
+	}catch(err){
+		console.log("Status:", err.response?.status);
+		console.log("Message:", err.response?.data?.message);
+	}
+};
+
 export {
 	createUserAPI, UpdateUserAPI, fetchAllUserAPI, DeleteUserAPI, handleUploadFileAPI,
 	UpdateUserAvatarAPI, registerUserAPI, loginAPI, getAccountAPI, logoutAPI,
-	fetchAllBookAPI, createBookAPI, UpdateBookAPI, DeleteBookAPI
+	fetchAllBookAPI, createBookAPI, UpdateBookAPI, DeleteBookAPI, fetchWeather, fetchWeather2
 }
