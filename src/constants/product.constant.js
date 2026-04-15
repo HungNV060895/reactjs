@@ -1,6 +1,4 @@
-import { Product } from "@/types/product.type";
-
-export const MOCK_PRODUCTS: Product[] = [
+export const MOCK_PRODUCTS = [
     {
         _id: '1',
         name: 'iPhone 15 Pro Max',
