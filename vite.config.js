@@ -21,12 +21,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'antd-vendor': ['antd', '@ant-design/icons'],
+          // Tách riêng antd core và icons vì cả 2 gộp lại rất nặng
+          'antd-core': ['antd'],
+          'antd-icons': ['@ant-design/icons'],
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
+    // Nếu bạn vẫn thấy cảnh báo, có thể tăng lên 1500, nhưng chia nhỏ là cách tốt nhất
+    chunkSizeWarningLimit: 1500,
   },
   server: {
     port: 3000,
