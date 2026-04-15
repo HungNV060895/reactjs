@@ -79,30 +79,30 @@ const Header = () => {
 			icon: <ProductOutlined />
 		},
 		
-		{
-			label: <Link to={"/book"}>Books</Link>,
-			key: 'book',
-			icon: <AuditOutlined />,
-		},
-		...(!user.id ? [{
-			label: <Link to={"/login"}>Đăng nhập</Link>,
-			key: 'login',
-			icon: <LoginOutlined />,
-		}] : []),
+		// {
+		// 	label: <Link to={"/book"}>Books</Link>,
+		// 	key: 'book',
+		// 	icon: <AuditOutlined />,
+		// },
+		// ...(!user.id ? [{
+		// 	label: <Link to={"/login"}>Đăng nhập</Link>,
+		// 	key: 'login',
+		// 	icon: <LoginOutlined />,
+		// }] : []),
 
 
-		...(user.id ? [{
-			label: `Welcome ${user.fullName}`,
-			key: 'setting',
-			icon: <AliwangwangOutlined />,
-			children: [
-				{
-					label: <span onClick={()=>handleLogout()}>Đăng xuất</span>,
-					key: 'logout',
-					icon: <LogoutOutlined />
-				},
-			],
-		}] : []),
+		// ...(user.id ? [{
+		// 	label: `Welcome ${user.fullName}`,
+		// 	key: 'setting',
+		// 	icon: <AliwangwangOutlined />,
+		// 	children: [
+		// 		{
+		// 			label: <span onClick={()=>handleLogout()}>Đăng xuất</span>,
+		// 			key: 'logout',
+		// 			icon: <LogoutOutlined />
+		// 		},
+		// 	],
+		// }] : []),
 	];
 
 	return (
