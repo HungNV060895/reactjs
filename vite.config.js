@@ -18,6 +18,17 @@ export default defineConfig({
       '@/assets': path.resolve(__dirname, './src/assets'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'antd-vendor': ['antd', '@ant-design/icons'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
   server: {
     port: 3000,
     open: true,

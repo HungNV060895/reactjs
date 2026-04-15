@@ -1,4 +1,4 @@
-import { Drawer, List, Button, InputNumber, Typography, Space, Empty } from 'antd';
+import { Drawer, List, Button, InputNumber, Typography, Space, Empty, Row, Col } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useCart } from '../context/cart.context';
 
@@ -57,13 +57,17 @@ const CartDrawer = ({ open, onClose }) => {
                         )}
                     />
                     <div style={{ marginTop: 24, padding: '16px', background: '#fafafa', borderRadius: '8px' }}>
-                        <Row justify="space-between">
-                            <Title level={4}>Tổng cộng:</Title>
-                            <Title level={4} style={{ color: '#ff4d4f' }}>
-                                {totalPrice.toLocaleString('vi-VN')} đ
-                            </Title>
+                        <Row justify="space-between" align="middle">
+                            <Col>
+                                <Text strong style={{ fontSize: '16px' }}>Tổng cộng:</Text>
+                            </Col>
+                            <Col>
+                                <Text strong style={{ color: '#ff4d4f', fontSize: '20px' }}>
+                                    {totalPrice.toLocaleString('vi-VN')} đ
+                                </Text>
+                            </Col>
                         </Row>
-                        <Button type="primary" block size="large" style={{ marginTop: 16 }}>
+                        <Button type="primary" block size="large" style={{ marginTop: 16, height: '45px', fontWeight: 'bold' }}>
                             Thanh toán ngay
                         </Button>
                     </div>
@@ -73,5 +77,4 @@ const CartDrawer = ({ open, onClose }) => {
     );
 };
 
-import { Row } from 'antd'; // Import Row cho layout tổng tiền
 export default CartDrawer;

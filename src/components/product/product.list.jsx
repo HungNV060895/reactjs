@@ -1,33 +1,10 @@
-import { Card, Button, Row, Col, Typography, message } from 'antd';
+import { Card, Button, Row, Col, Typography, message, Tag } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useCart } from '../context/cart.context';
 import { useNavigate } from 'react-router-dom';
-
-// const navigate = useNavigate();
+import { MOCK_PRODUCTS } from '@/constants/product.constant';
 
 const { Title, Text } = Typography;
-
-// Dữ liệu mẫu (Mock data) tuân theo cấu trúc Product đã thiết kế
-const MOCK_PRODUCTS = [
-    {
-        _id: '1',
-        name: 'iPhone 15 Pro Max',
-        description: 'Titan tự nhiên, chip A17 Pro siêu mạnh mẽ.',
-        price: 34990000,
-        category: 'Phone',
-        image: 'https://placehold.jp/226x220.png',
-        stock: 10
-    },
-    {
-        _id: '2',
-        name: 'MacBook Air M3',
-        description: 'Mỏng nhẹ, thời lượng pin lên đến 18 giờ.',
-        price: 27990000,
-        category: 'Laptop',
-        image: 'https://placehold.jp/226x220.png',
-        stock: 5
-    }
-];
 
 const ProductList = () => {
     const navigate = useNavigate();
@@ -40,7 +17,6 @@ const ProductList = () => {
 
     const handleViewProduct = (productId) => {
         // Xử lý khi người dùng nhấn vào sản phẩm
-        console.log(productId);
         navigate(`/product/${productId}`);
     }
 
@@ -69,7 +45,12 @@ const ProductList = () => {
                             ]}
                         >
                             <Card.Meta
-                                title={product.name}
+                                title={
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span>{product.name}</span>
+                                        <Tag color="green">{product.category}</Tag>
+                                    </div>
+                                }
                                 description={
                                     <>
                                         <Text type="secondary" ellipsis>{product.description}</Text>

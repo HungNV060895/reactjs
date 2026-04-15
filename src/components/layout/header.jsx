@@ -1,12 +1,11 @@
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, message, Badge } from 'antd';
+import { Menu, message, Badge, Avatar } from 'antd';
 import {
 	UsergroupAddOutlined, LoginOutlined,
 	HomeOutlined, AuditOutlined, AliwangwangOutlined, SunOutlined,
-	ProductOutlined
+	ProductOutlined, LogoutOutlined, ShoppingCartOutlined
 } from '@ant-design/icons';
-import {Avatar} from 'antd'
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { logoutAPI } from '../../services/api.service';
 import { useCart } from '../context/cart.context';
@@ -23,8 +22,8 @@ const Header = () => {
 
 	useEffect(() => {
 		if (location && location.pathname) {
-			const allRouters = ['user', 'book', 'weather', 'product', 'product/:productId'];
-			const currentRouter = allRouters.find(item => `/${item}` === location.pathname);
+			const allRouters = ['user', 'book', 'weather', 'product'];
+			const currentRouter = allRouters.find(item => location.pathname.startsWith(`/${item}`));
 			if (currentRouter) {
 				setCurrent(currentRouter);
 			} else {
@@ -51,7 +50,6 @@ const Header = () => {
 				id: "",
 			})
 			message.success('Logout thanh cong');
-			// navigate('/');
 		}
 	}
 
@@ -101,6 +99,7 @@ const Header = () => {
 				{
 					label: <span onClick={()=>handleLogout()}>Đăng xuất</span>,
 					key: 'logout',
+					icon: <LogoutOutlined />
 				},
 			],
 		}] : []),
@@ -116,13 +115,14 @@ const Header = () => {
 					items={items}
 				/>
 			</div>
+			
 			<div 
 				className='icon-cart' 
 				onClick={() => setIsCartOpen(true)} 
-				style={{ cursor: 'pointer', padding: '0 20px' }}
+				style={{ cursor: 'pointer', padding: '0 20px', display: 'flex', alignItems: 'center' }}
 			>
-				<Badge count={totalQuantity}>
-					<Avatar shape="square" size="large" icon={<ProductOutlined />} />
+				<Badge count={totalQuantity} showZero color="#1677ff">
+					<Avatar shape="circle" size="large" icon={<ShoppingCartOutlined />} style={{ backgroundColor: '#f5f5f5', color: '#1677ff' }} />
 				</Badge>
 			</div>
 

@@ -38,7 +38,10 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             let newItems;
             if (existingItemIndex > -1) {
                 newItems = [...state.items];
-                newItems[existingItemIndex].quantity += 1;
+                newItems[existingItemIndex] = {
+                    ...newItems[existingItemIndex],
+                    quantity: newItems[existingItemIndex].quantity + 1
+                };
             } else {
                 newItems = [...state.items, { product: action.payload, quantity: 1 }];
             }
