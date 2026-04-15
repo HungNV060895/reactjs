@@ -13,3 +13,22 @@
 .product-ttlsub{
     margin-bottom: 1em;
 }
+
+.icon-cart{
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+}
+
+.ant-badge .ant-scroll-number {
+    top: 10px;
+    right: 10px;
+    & * {
+        overflow: hidden;
+    }
+}
+
+.ant-avatar{
+    overflow: auto;
+}

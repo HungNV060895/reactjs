@@ -9,7 +9,7 @@ const ProductPage = (props) => {
                     <div className="inner">
                         <h1 className="product-ttl">Page product</h1>
                         <ProductList />
-                        <ProductForm />
+                        
                         <Button type="primary">Add Product</Button>
                     </div>
 

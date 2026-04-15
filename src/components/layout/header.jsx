@@ -1,24 +1,29 @@
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, message } from 'antd';
+import { Menu, message, Badge } from 'antd';
 import {
 	UsergroupAddOutlined, LoginOutlined,
 	HomeOutlined, AuditOutlined, AliwangwangOutlined, SunOutlined,
 	ProductOutlined
 } from '@ant-design/icons';
+import {Avatar} from 'antd'
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { logoutAPI } from '../../services/api.service';
+import { useCart } from '../context/cart.context';
+import CartDrawer from '../product/cart.drawer';
 
 const Header = () => {
 	const [current, setCurrent] = useState('');
+	const [isCartOpen, setIsCartOpen] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const { user, setUser } = useContext(AuthContext);
+	const { totalQuantity } = useCart();
 
 	useEffect(() => {
 		if (location && location.pathname) {
-			const allRouters = ['user', 'book', 'weather', 'product'];
+			const allRouters = ['user', 'book', 'weather', 'product', 'product/:productId'];
 			const currentRouter = allRouters.find(item => `/${item}` === location.pathname);
 			if (currentRouter) {
 				setCurrent(currentRouter);
@@ -67,10 +72,15 @@ const Header = () => {
 			icon: <SunOutlined />
 		},
 		{
-			label: <Link to={"/product"}>Product</Link>,
+			label: (
+				<Link to={"/product"}>
+					Product
+				</Link>
+			),
 			key: 'product',
 			icon: <ProductOutlined />
 		},
+		
 		{
 			label: <Link to={"/book"}>Books</Link>,
 			key: 'book',
@@ -106,6 +116,17 @@ const Header = () => {
 					items={items}
 				/>
 			</div>
+			<div 
+				className='icon-cart' 
+				onClick={() => setIsCartOpen(true)} 
+				style={{ cursor: 'pointer', padding: '0 20px' }}
+			>
+				<Badge count={totalQuantity}>
+					<Avatar shape="square" size="large" icon={<ProductOutlined />} />
+				</Badge>
+			</div>
+
+			<CartDrawer open={isCartOpen} onClose={() => setIsCartOpen(false)} />
 		</header>
 	)
 }

@@ -20,6 +20,7 @@ import TodoApp from './components/learn/TodoApp.jsx';
 import PrivateRoute from './pages/private.route.jsx';
 import ProductPage from './pages/product.jsx';
 import Weather from './pages/weather.jsx';
+import ProductDetail from './components/product/product.detail.jsx';
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <ProductPage/>
+      },
+      {
+        path: "/product/:productId",
+        element: <ProductDetail/>
       },
       {
         path: "/book",
